@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Explore the RePL</title>
+  <meta name="description" content="This post does some very basic stuff with the Scala RePL.">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/2018/02/15/basic-repl-stuff/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Scala Fast Lane" href="http://localhost:4000/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="jekyllrb">
+  <meta name="twitter:title" content="Explore the RePL">
+  <meta name="twitter:description" content="This post does some very basic stuff with the Scala RePL.">
+  
+    <meta name="twitter:creator" content="jekyllrb">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Scala Fast Lane</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/motivation/">Motivation</a>
+      
+        
+        <a class="page-link" href="/archives/">Archives</a>
+      
+        
+        <a class="page-link" href="https://github.com/prasoonj">SmartEngage</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">Explore the RePL</h1>
+    
+    <p class="post-meta"><time datetime="2018-02-15T08:46:05+05:30" itemprop="datePublished">Feb 15, 2018</time> •
+  
+    
+    
+  
+
+
+ •
+  
+    
+    
+  
+    
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>scala
+scala&gt; val x <span class="o">=</span> <span class="s2">"hello"</span>
+x: String <span class="o">=</span> hello
+</code></pre></div></div>
+<p>The <code class="highlighter-rouge">x</code> above is a <code class="highlighter-rouge">val</code>, meaning, if you try to assign any other value to <code class="highlighter-rouge">x</code>, you would get an error. These are Scala’s immutable. We have assigned a String value to this val which is what the Scala interpreter prints out for you.</p>
+
+<p><code class="highlighter-rouge">x: String //This is how we define objects to be of a certain type.</code></p>
+
+<h2 id="exercises">Exercises:</h2>
+<ol>
+  <li>See what happens if you try to re-assign a value to this val.</li>
+  <li>What happens if you don’t use the keyword ‘val’?</li>
+  <li>Carry out other type assignments - Int, etc.</li>
+</ol>
+
+<p>Check out the <a href="https://docs.scala-lang.org/overviews/repl/overview.html">Scala Documentation</a> for more on the RePL!</p>
+
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="http://localhost:4000/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
