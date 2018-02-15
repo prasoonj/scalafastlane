@@ -24,7 +24,7 @@ github_username:  prasoonj
 
 # Build settings
 markdown: kramdown
-theme: jekyll-whiteglass
+theme: jekyll-theme-cayman
 
 plugins:
   - jekyll-archives
