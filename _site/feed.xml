@@ -3,10 +3,10 @@
   <generator uri="http://jekyllrb.com" version="3.6.2">Jekyll</generator>
   
   
-  <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="http://localhost:4000/" rel="alternate" type="text/html" />
-  <updated>2018-02-15T13:40:06+05:30</updated>
-  <id>http://localhost:4000//</id>
+  <link href="http://localhost:4000/scalafastlane/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="http://localhost:4000/scalafastlane/" rel="alternate" type="text/html" />
+  <updated>2018-02-15T14:27:41+05:30</updated>
+  <id>http://localhost:4000/scalafastlane//</id>
 
   
     <title type="html">Scala Fast Lane</title>
@@ -22,19 +22,40 @@
   
     <entry>
       
-      <title type="html">Installation Business</title>
+      <title type="html">#2. A Basic Iteration</title>
       
-      <link href="http://localhost:4000/2018/02/15/installation/" rel="alternate" type="text/html" title="Installation Business" />
-      <published>2018-02-15T08:46:05+05:30</published>
-      <updated>2018-02-15T08:46:05+05:30</updated>
-      <id>http://localhost:4000/2018/02/15/installation</id>
-      <content type="html" xml:base="http://localhost:4000/2018/02/15/installation/">&lt;p&gt;This would install the scala RePL and sbt (Scala’s build tool) on your machine.&lt;/p&gt;
+      <link href="http://localhost:4000/scalafastlane/2018/02/15/basic-iteration/" rel="alternate" type="text/html" title="#2. A Basic Iteration" />
+      <published>2018-02-15T12:18:05+05:30</published>
+      <updated>2018-02-15T12:18:05+05:30</updated>
+      <id>http://localhost:4000/scalafastlane/2018/02/15/basic-iteration</id>
+      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/15/basic-iteration/">&lt;h1 id=&quot;a-basic-iteration&quot;&gt;A Basic Iteration:&lt;/h1&gt;
 
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;brew install scala
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scala&amp;gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;x &amp;lt;- &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1 to 10&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; yield &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; x &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+res3: scala.collection.immutable.IndexedSeq[Int] &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Vector&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1, 4, 9, 16, 25, 36, 49, 64, 81, 100&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;brew install sbt@1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Check out the &lt;a href=&quot;https://www.scala-lang.org/download/&quot;&gt;Scala Download&lt;/a&gt; if you face any problem!&lt;/p&gt;</content>
+
+&lt;p&gt;The part &lt;code class=&quot;highlighter-rouge&quot;&gt;(x &amp;lt;- (1 to 10))&lt;/code&gt; is called the generator. We are using a Range here &lt;code class=&quot;highlighter-rouge&quot;&gt;(1 to 10)&lt;/code&gt; but, this could be any type that has &lt;code class=&quot;highlighter-rouge&quot;&gt;IterableLike&lt;/code&gt; as a trait (think of traits as an interface for now, we’ll come back to it.)&lt;/p&gt;
+
+&lt;p&gt;The function (inside the curly braces &lt;code class=&quot;highlighter-rouge&quot;&gt;{ }&lt;/code&gt; ) is a function that is passed after the &lt;code class=&quot;highlighter-rouge&quot;&gt;yield&lt;/code&gt; keyword. This function is responsible for taking each element of the generator and “doing something with it”. In this case we are just calculating squares of the numbers passed.&lt;/p&gt;
+
+&lt;p&gt;Few important points about the result of the operation:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Since we did not assign the expression (everything in Scala is an expression - we don’t have statements here, you’ll know why later) to any variable (&lt;code class=&quot;highlighter-rouge&quot;&gt;var&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;val&lt;/code&gt;), the interpreter assigns the result to a &lt;code class=&quot;highlighter-rouge&quot;&gt;val&lt;/code&gt; (yes, by default things are &lt;code class=&quot;highlighter-rouge&quot;&gt;val&lt;/code&gt; not &lt;code class=&quot;highlighter-rouge&quot;&gt;var&lt;/code&gt;) called &lt;code class=&quot;highlighter-rouge&quot;&gt;res3&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Following the same convention as before, you can check the type of res3 which is &lt;code class=&quot;highlighter-rouge&quot;&gt;scala.collection.immutable.IndexedSeq[Int]&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;We started with a Range (1 to 10), the for comprehension yielded another Sequence for us - a Vector. Each element of this vector is equal to the square of each element of the Range. Simple!&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;exercises&quot;&gt;Exercises:&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Try assigning this expression to a val/var and compare the results.&lt;/li&gt;
+  &lt;li&gt;Use a String object as a generator and see what happens.&lt;/li&gt;
+  &lt;li&gt;Here’s how you can print things - &lt;code class=&quot;highlighter-rouge&quot;&gt;println(“Hello Scala”)&lt;/code&gt;. Try printing the values instead of returning a Vector.&lt;/li&gt;
+  &lt;li&gt;Try the foreach construct like this:&lt;code class=&quot;highlighter-rouge&quot;&gt; (1 to 10) foreach { x =&amp;gt; x * x }&lt;/code&gt; Experiment with this slightly different syntax and try to see which one would be used where.&lt;/li&gt;
+  &lt;li&gt;Use foreach for exercises 1 to 3.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;https://docs.scala-lang.org/overviews/repl/overview.html&quot;&gt;Scala Documentation&lt;/a&gt; for more on the RePL!&lt;/p&gt;</content>
 
       
       
@@ -51,11 +72,11 @@
       
         <category term="scala" />
       
-        <category term="installation" />
+        <category term="iteration" />
       
 
       
-        <summary type="html">This would install the scala RePL and sbt (Scala’s build tool) on your machine.</summary>
+        <summary type="html">A Basic Iteration:</summary>
       
 
       
@@ -66,13 +87,13 @@
   
     <entry>
       
-      <title type="html">Explore the RePL</title>
+      <title type="html">#1. Explore the RePL</title>
       
-      <link href="http://localhost:4000/2018/02/15/basic-repl-stuff/" rel="alternate" type="text/html" title="Explore the RePL" />
-      <published>2018-02-15T08:46:05+05:30</published>
-      <updated>2018-02-15T08:46:05+05:30</updated>
-      <id>http://localhost:4000/2018/02/15/basic-repl-stuff</id>
-      <content type="html" xml:base="http://localhost:4000/2018/02/15/basic-repl-stuff/">&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;scala
+      <link href="http://localhost:4000/scalafastlane/2018/02/15/basic-repl-stuff/" rel="alternate" type="text/html" title="#1. Explore the RePL" />
+      <published>2018-02-15T08:56:05+05:30</published>
+      <updated>2018-02-15T08:56:05+05:30</updated>
+      <id>http://localhost:4000/scalafastlane/2018/02/15/basic-repl-stuff</id>
+      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/15/basic-repl-stuff/">&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;scala
 scala&amp;gt; val x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;
 x: String &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; hello
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -109,6 +130,50 @@ x: String &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; hello
 
       
         <summary type="html">$ scala scala&amp;gt; val x = &quot;hello&quot; x: String = hello The x above is a val, meaning, if you try to assign any other value to x, you would get an error. These are Scala’s immutable. We have assigned a String value to this val which is what the Scala interpreter prints out for you.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">#0. Installation Business</title>
+      
+      <link href="http://localhost:4000/scalafastlane/2018/02/15/installation/" rel="alternate" type="text/html" title="#0. Installation Business" />
+      <published>2018-02-15T08:46:05+05:30</published>
+      <updated>2018-02-15T08:46:05+05:30</updated>
+      <id>http://localhost:4000/scalafastlane/2018/02/15/installation</id>
+      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/15/installation/">&lt;p&gt;This would install the scala RePL and sbt (Scala’s build tool) on your machine.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;brew install scala
+
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;brew install sbt@1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Check out the &lt;a href=&quot;https://www.scala-lang.org/download/&quot;&gt;Scala Download&lt;/a&gt; if you face any problem!&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="Basic" />
+      
+
+      
+        <category term="scala" />
+      
+        <category term="installation" />
+      
+
+      
+        <summary type="html">This would install the scala RePL and sbt (Scala’s build tool) on your machine.</summary>
       
 
       

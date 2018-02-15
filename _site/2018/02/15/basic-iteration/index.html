@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>#2. A Basic Iteration</title>
+  <meta name="description" content="Simple for comprehensions with Scala.">
+  
+
+  <link rel="stylesheet" href="/scalafastlane/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/scalafastlane/2018/02/15/basic-iteration/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Scala Fast Lane" href="http://localhost:4000/scalafastlane/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="prasoonj">
+  <meta name="twitter:title" content="#2. A Basic Iteration">
+  <meta name="twitter:description" content="Simple for comprehensions with Scala.">
+  
+    <meta name="twitter:creator" content="prasoonj">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/scalafastlane/">Scala Fast Lane</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/scalafastlane/motivation/">Motivation</a>
+      
+        
+        <a class="page-link" href="/scalafastlane/archives/">Archives</a>
+      
+        
+        <a class="page-link" href="https://github.com/prasoonj">SmartEngage</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">#2. A Basic Iteration</h1>
+    
+    <p class="post-meta"><time datetime="2018-02-15T12:18:05+05:30" itemprop="datePublished">Feb 15, 2018</time> •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/scalafastlane/categories/basic/">Basic</a>
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+        <a href="/scalafastlane/tags/scala/">scala</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/scalafastlane/tags/iteration/">iteration</a>
+      
+    
+      
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <h1 id="a-basic-iteration">A Basic Iteration:</h1>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scala&gt; <span class="k">for</span> <span class="o">(</span>x &lt;- <span class="o">(</span>1 to 10<span class="o">))</span> yield <span class="o">{</span> x <span class="k">*</span> x <span class="o">}</span>
+res3: scala.collection.immutable.IndexedSeq[Int] <span class="o">=</span> Vector<span class="o">(</span>1, 4, 9, 16, 25, 36, 49, 64, 81, 100<span class="o">)</span>
+
+</code></pre></div></div>
+
+<p>The part <code class="highlighter-rouge">(x &lt;- (1 to 10))</code> is called the generator. We are using a Range here <code class="highlighter-rouge">(1 to 10)</code> but, this could be any type that has <code class="highlighter-rouge">IterableLike</code> as a trait (think of traits as an interface for now, we’ll come back to it.)</p>
+
+<p>The function (inside the curly braces <code class="highlighter-rouge">{ }</code> ) is a function that is passed after the <code class="highlighter-rouge">yield</code> keyword. This function is responsible for taking each element of the generator and “doing something with it”. In this case we are just calculating squares of the numbers passed.</p>
+
+<p>Few important points about the result of the operation:</p>
+<ol>
+  <li>Since we did not assign the expression (everything in Scala is an expression - we don’t have statements here, you’ll know why later) to any variable (<code class="highlighter-rouge">var</code> or <code class="highlighter-rouge">val</code>), the interpreter assigns the result to a <code class="highlighter-rouge">val</code> (yes, by default things are <code class="highlighter-rouge">val</code> not <code class="highlighter-rouge">var</code>) called <code class="highlighter-rouge">res3</code>.</li>
+  <li>Following the same convention as before, you can check the type of res3 which is <code class="highlighter-rouge">scala.collection.immutable.IndexedSeq[Int]</code>.</li>
+  <li>We started with a Range (1 to 10), the for comprehension yielded another Sequence for us - a Vector. Each element of this vector is equal to the square of each element of the Range. Simple!</li>
+</ol>
+
+<h2 id="exercises">Exercises:</h2>
+<ol>
+  <li>Try assigning this expression to a val/var and compare the results.</li>
+  <li>Use a String object as a generator and see what happens.</li>
+  <li>Here’s how you can print things - <code class="highlighter-rouge">println(“Hello Scala”)</code>. Try printing the values instead of returning a Vector.</li>
+  <li>Try the foreach construct like this:<code class="highlighter-rouge"> (1 to 10) foreach { x =&gt; x * x }</code> Experiment with this slightly different syntax and try to see which one would be used where.</li>
+  <li>Use foreach for exercises 1 to 3.</li>
+</ol>
+
+<p>Check out the <a href="https://docs.scala-lang.org/overviews/repl/overview.html">Scala Documentation</a> for more on the RePL!</p>
+
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="http://localhost:4000/scalafastlane/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

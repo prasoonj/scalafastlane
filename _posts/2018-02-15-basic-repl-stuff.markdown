@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Explore the RePL"
-date:   2018-02-15 08:46:05 +0530
+title:  "#1. Explore the RePL"
+date:   2018-02-15 08:56:05 +0530
 categories: Basic
 description: This post does some very basic stuff with the Scala RePL.
 tags:
