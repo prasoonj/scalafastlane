@@ -9,7 +9,7 @@ tags:
   - iteration
 ---
 
-# A Basic Iteration:
+## A Basic Iteration:
 
 ``` sh
 scala> for (x <- (1 to 10)) yield { x * x }
@@ -26,7 +26,7 @@ Few important points about the result of the operation:
 2. Following the same convention as before, you can check the type of res3 which is `scala.collection.immutable.IndexedSeq[Int]`.
 3. We started with a Range (1 to 10), the for comprehension yielded another Sequence for us - a Vector. Each element of this vector is equal to the square of each element of the Range. Simple!
 
-## Exercises:
+# Exercises:
 1. Try assigning this expression to a val/var and compare the results.
 2. Use a String object as a generator and see what happens.
 3. Here’s how you can print things - `println(“Hello Scala”)`. Try printing the values instead of returning a Vector.

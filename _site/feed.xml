@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/scalafastlane/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/scalafastlane/" rel="alternate" type="text/html" />
-  <updated>2018-02-15T14:27:41+05:30</updated>
+  <updated>2018-02-16T08:03:47+05:30</updated>
   <id>http://localhost:4000/scalafastlane//</id>
 
   
@@ -22,13 +22,122 @@
   
     <entry>
       
+      <title type="html">#3. Map and Fold</title>
+      
+      <link href="http://localhost:4000/scalafastlane/2018/02/16/basic-map-and-fold/" rel="alternate" type="text/html" title="#3. Map and Fold" />
+      <published>2018-02-16T06:18:05+05:30</published>
+      <updated>2018-02-16T06:18:05+05:30</updated>
+      <id>http://localhost:4000/scalafastlane/2018/02/16/basic-map-and-fold</id>
+      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/16/basic-map-and-fold/">&lt;h2 id=&quot;running-down-a-collection-of-objects&quot;&gt;Running down a collection of objects&lt;/h2&gt;
+
+&lt;p&gt;Before we start with map, let’s take a very quick detour and see how we can define functions (or methods inside a class which we’ll see in a later post):&lt;/p&gt;
+
+&lt;h1 id=&quot;defining-functions&quot;&gt;Defining functions&lt;/h1&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;scala&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Double&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;x:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Double&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Well, I kinda lied to you there. You need to &lt;code class=&quot;highlighter-rouge&quot;&gt;import math._&lt;/code&gt; before you can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;pow()&lt;/code&gt; method from the &lt;code class=&quot;highlighter-rouge&quot;&gt;math&lt;/code&gt; package. The &lt;code class=&quot;highlighter-rouge&quot;&gt;._&lt;/code&gt; instructs the compiler to get everything that’s publicly exposed available in the &lt;code class=&quot;highlighter-rouge&quot;&gt;math&lt;/code&gt; package.&lt;/p&gt;
+
+&lt;p&gt;Let’s run through that one line function and the function &lt;code class=&quot;highlighter-rouge&quot;&gt;type signature&lt;/code&gt; that follows it (the scala interpreter generates it for us). Here are the important points:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;def&lt;/code&gt; is how you tell the compiler that it is the start of a function definition.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;doSomething(x: Int)&lt;/code&gt; is the function name along with the list of arguments it takes and their types. The type of &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;Int&lt;/code&gt; here.&lt;/li&gt;
+  &lt;li&gt;The last part of the definition is the return type. You don’t always need to provide the return type but, it is a good practice (The compiler will tell you when you need to and you forgot but, don’t forget. It helps in writing clean code that NEVER breaks!) In this case, the return type is &lt;code class=&quot;highlighter-rouge&quot;&gt;Double&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;The things after the &lt;code class=&quot;highlighter-rouge&quot;&gt;=&lt;/code&gt; sign constitute the body of the function. Yes, you guessed it, if the body is more than just one line, you can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;{ }&lt;/code&gt; to keep them in a code block.&lt;/li&gt;
+  &lt;li&gt;Notice that there is no &lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt; statement. The function would just return the result of the last line. Be careful that this should match the return type declared in your function definition.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;maps-are-more-than-just-for-cartographers&quot;&gt;Maps are more than just for cartographers!&lt;/h1&gt;
+
+&lt;p&gt;Think of the &lt;code class=&quot;highlighter-rouge&quot;&gt;mapping&lt;/code&gt; operation as this: Run down a collection, taking one element at a time, and pass the elements as an argument to the mapping function.&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;scala&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doSomething&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;res1&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;scala.collection.immutable.IndexedSeq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Double&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;32.0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;243.0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1024.0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;You would remember from yesterday that &lt;code class=&quot;highlighter-rouge&quot;&gt;(1 to 4)&lt;/code&gt; is a collection. Well, if you forgot, just put it in the RePL and see what it is!&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;scala&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;res4&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;scala.collection.immutable.Range.Inclusive&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Range&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Neat!&lt;/p&gt;
+
+&lt;h1 id=&quot;lets-jump-to-fold-now&quot;&gt;Let’s jump to fold now!&lt;/h1&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;fold&lt;/code&gt; is interesting! To demonstrate &lt;code class=&quot;highlighter-rouge&quot;&gt;fold&lt;/code&gt; let’s be nice and give a name to a collection:&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;scala&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;By now, you should be comfortable with understanding the type that the RePL prints for us.&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;scala&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fold&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;res11&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Here’s what this weird looking fellow is doing:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;fold&lt;/code&gt; is taking 2 &lt;code class=&quot;highlighter-rouge&quot;&gt;parameter lists&lt;/code&gt;! The first one is the number &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;, the second is the function &lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;. You might find the &lt;code class=&quot;highlighter-rouge&quot;&gt;_+_&lt;/code&gt; weird but, this is an &lt;code class=&quot;highlighter-rouge&quot;&gt;infix&lt;/code&gt; notation for the function &lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt; which takes 2 arguments. We don’t care to name the arguments here so we just used a &lt;code class=&quot;highlighter-rouge&quot;&gt;_&lt;/code&gt; -&amp;gt; anything goes!&lt;/li&gt;
+  &lt;li&gt;The first argument list - &lt;code class=&quot;highlighter-rouge&quot;&gt;(0)&lt;/code&gt; - is called the &lt;code class=&quot;highlighter-rouge&quot;&gt;accumulator&lt;/code&gt;. (See it yet?)&lt;/li&gt;
+  &lt;li&gt;What &lt;code class=&quot;highlighter-rouge&quot;&gt;fold&lt;/code&gt; is doing is, it is taking one element of the collection at a time -&amp;gt; passing that element and the &lt;code class=&quot;highlighter-rouge&quot;&gt;accumulator&lt;/code&gt; to the function given in its second argument list. This function’s return value then acts as the &lt;code class=&quot;highlighter-rouge&quot;&gt;accumulator&lt;/code&gt; for the next iteration!&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We “looped” through the whole list and added the elements!&lt;/p&gt;
+
+&lt;h1 id=&quot;caution-or-joy&quot;&gt;Caution (or Joy?)&lt;/h1&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;fold&lt;/code&gt; will not go through the list in any particular order. It is essentially an async operation. If you are doing something with the list that requires a particular order to be preserved you can use &lt;code class=&quot;highlighter-rouge&quot;&gt;foldLeft&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;foldRight&lt;/code&gt;!&lt;/p&gt;
+
+&lt;p&gt;This post is already quite long! But hey, we wrote just &lt;strong&gt;&lt;em&gt;4 lines of code!&lt;/em&gt;&lt;/strong&gt; That’s the joy of Scala, it makes your code very concise and therefore easy to debug, if something goes wrong!&lt;/p&gt;
+
+&lt;h1 id=&quot;exercises&quot;&gt;Exercises&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;Try creating functions that are more than one lines of code!&lt;/li&gt;
+  &lt;li&gt;Can you think of (and write!) some function that might give different results for &lt;code class=&quot;highlighter-rouge&quot;&gt;fold&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;foldLeft&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;foldRight&lt;/code&gt;?&lt;/li&gt;
+  &lt;li&gt;Change the return type of your functions to induce an error and read the exception.
+  4.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Check out this cool resource from &lt;a href=&quot;https://twitter.github.io/scala_school/collections.html&quot;&gt;Twitter&lt;/a&gt; for more on collections and what can be done with them!&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="Basic" />
+      
+
+      
+        <category term="scala" />
+      
+        <category term="map" />
+      
+        <category term="fold" />
+      
+
+      
+        <summary type="html">Running down a collection of objects</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
       <title type="html">#2. A Basic Iteration</title>
       
       <link href="http://localhost:4000/scalafastlane/2018/02/15/basic-iteration/" rel="alternate" type="text/html" title="#2. A Basic Iteration" />
       <published>2018-02-15T12:18:05+05:30</published>
       <updated>2018-02-15T12:18:05+05:30</updated>
       <id>http://localhost:4000/scalafastlane/2018/02/15/basic-iteration</id>
-      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/15/basic-iteration/">&lt;h1 id=&quot;a-basic-iteration&quot;&gt;A Basic Iteration:&lt;/h1&gt;
+      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/15/basic-iteration/">&lt;h2 id=&quot;a-basic-iteration&quot;&gt;A Basic Iteration:&lt;/h2&gt;
 
 &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scala&amp;gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;x &amp;lt;- &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1 to 10&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; yield &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; x &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 res3: scala.collection.immutable.IndexedSeq[Int] &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Vector&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1, 4, 9, 16, 25, 36, 49, 64, 81, 100&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
@@ -46,7 +155,7 @@ res3: scala.collection.immutable.IndexedSeq[Int] &lt;span class=&quot;o&quot;&gt
   &lt;li&gt;We started with a Range (1 to 10), the for comprehension yielded another Sequence for us - a Vector. Each element of this vector is equal to the square of each element of the Range. Simple!&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2 id=&quot;exercises&quot;&gt;Exercises:&lt;/h2&gt;
+&lt;h1 id=&quot;exercises&quot;&gt;Exercises:&lt;/h1&gt;
 &lt;ol&gt;
   &lt;li&gt;Try assigning this expression to a val/var and compare the results.&lt;/li&gt;
   &lt;li&gt;Use a String object as a generator and see what happens.&lt;/li&gt;

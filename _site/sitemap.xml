@@ -13,6 +13,10 @@
 <lastmod>2018-02-15T12:18:05+05:30</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/scalafastlane/2018/02/16/basic-map-and-fold/</loc>
+<lastmod>2018-02-16T06:18:05+05:30</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/scalafastlane/404/</loc>
 </url>
 <url>
@@ -38,6 +42,12 @@
 </url>
 <url>
 <loc>http://localhost:4000/scalafastlane/tags/iteration/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/scalafastlane/tags/map/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/scalafastlane/tags/fold/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/scalafastlane/categories/basic/</loc>

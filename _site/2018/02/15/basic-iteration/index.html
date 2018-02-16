@@ -98,6 +98,10 @@
       
     
       
+    
+      
+    
+      
         <a href="/scalafastlane/categories/basic/">Basic</a>
       
     
@@ -110,6 +114,10 @@
     
       
         <a href="/scalafastlane/tags/scala/">scala</a>,
+      
+    
+      
+    
       
     
       
@@ -135,13 +143,17 @@
     
       
     
+      
+    
+      
+    
   
 
 </p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <h1 id="a-basic-iteration">A Basic Iteration:</h1>
+    <h2 id="a-basic-iteration">A Basic Iteration:</h2>
 
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scala&gt; <span class="k">for</span> <span class="o">(</span>x &lt;- <span class="o">(</span>1 to 10<span class="o">))</span> yield <span class="o">{</span> x <span class="k">*</span> x <span class="o">}</span>
 res3: scala.collection.immutable.IndexedSeq[Int] <span class="o">=</span> Vector<span class="o">(</span>1, 4, 9, 16, 25, 36, 49, 64, 81, 100<span class="o">)</span>
@@ -159,7 +171,7 @@ res3: scala.collection.immutable.IndexedSeq[Int] <span class="o">=</span> Vector
   <li>We started with a Range (1 to 10), the for comprehension yielded another Sequence for us - a Vector. Each element of this vector is equal to the square of each element of the Range. Simple!</li>
 </ol>
 
-<h2 id="exercises">Exercises:</h2>
+<h1 id="exercises">Exercises:</h1>
 <ol>
   <li>Try assigning this expression to a val/var and compare the results.</li>
   <li>Use a String object as a generator and see what happens.</li>
