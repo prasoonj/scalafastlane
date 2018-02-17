@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/scalafastlane/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/scalafastlane/" rel="alternate" type="text/html" />
-  <updated>2018-02-16T08:03:47+05:30</updated>
+  <updated>2018-02-17T09:29:44+05:30</updated>
   <id>http://localhost:4000/scalafastlane//</id>
 
   
@@ -18,6 +18,104 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">#4. Conditions and looping vs comprehension</title>
+      
+      <link href="http://localhost:4000/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions/" rel="alternate" type="text/html" title="#4. Conditions and looping vs comprehension" />
+      <published>2018-02-17T07:18:05+05:30</published>
+      <updated>2018-02-17T07:18:05+05:30</updated>
+      <id>http://localhost:4000/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions</id>
+      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions/">&lt;p&gt;We’ve already seen some looping in the earlier posts. Today, let’s talk about 3 concepts together that cement one important idea about a functional language that we’ve seen a glimpse of but, which we didn’t bother to define properly - &lt;strong&gt;&lt;em&gt;side effects&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;We said that Scala has expressions meaning, constructs that, after doing their stuff, return a certain value. Compare that with statements like &lt;code class=&quot;highlighter-rouge&quot;&gt;if statements&lt;/code&gt; in other languages - they produce what are called &lt;strong&gt;&lt;em&gt;side effects&lt;/em&gt;&lt;/strong&gt;. Programming is all about &lt;strong&gt;composing&lt;/strong&gt; smaller pieces together to form bigger ones. With that in mind, if a &lt;code class=&quot;highlighter-rouge&quot;&gt;statement&lt;/code&gt; that does not return anything is used, we can never be sure how including it as a compose-able piece will affect the overall behaviour of our code. Avoiding such statements hat produce &lt;strong&gt;&lt;em&gt;side effects&lt;/em&gt;&lt;/strong&gt; is one of the major push that functional programming languages like Scala drive for. But, you do need these &lt;strong&gt;&lt;em&gt;side effects&lt;/em&gt;&lt;/strong&gt;, if you just compose and do nothing, your program is useless! When we code in a FP language, we try to limit such side effects to controlled parts of our code and try to achieve “pureness” everywhere else.&lt;/p&gt;
+
+&lt;p&gt;With that introduction, let’s see what the &lt;code class=&quot;highlighter-rouge&quot;&gt;if&lt;/code&gt; can do for us in Scala that it cannot in other languages like Java. Well, it can return something!&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;scala&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;paste&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Entering paste mode (ctrl-D to finish)
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;howIsTheMorning&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;day&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Sunday&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;&quot;Beautiful Morning!&quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;&quot;Meh!&quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Exiting paste mode, now interpreting.
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;howIsTheMorning&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;day:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;scala&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;howIsTheMorning&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Sunday&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;res12&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Beautiful&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Morning&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;scala&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;howIsTheMorning&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Monday&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;res13&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Meh&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;scala&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;howIsTheMorning&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Saturday&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;res14&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Meh&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Notice how you can use the Scala RePL to enter the paste mode when you need to write functions that span more than one line!
+The important thing to note here is that your &lt;code class=&quot;highlighter-rouge&quot;&gt;if&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;else&lt;/code&gt; blocks are not just doing stuff like printing values or calling databases or whatever, they are returning values that can be used to &lt;strong&gt;&lt;em&gt;compose&lt;/em&gt;&lt;/strong&gt; bigger blocks!
+There’s certainly one problem here - &lt;strong&gt;&lt;em&gt;Saturday&lt;/em&gt;&lt;/strong&gt; morning are beautiful too! Let’s fix that while making it more robust!&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;scala&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;days&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Sunday&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Monday&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Tuesday&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Wednesday&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Thursday&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Friday&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Saturday&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;days&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Sunday&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Monday&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tuesday&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Wednesday&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Thursday&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Friday&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Saturday&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;scala&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;paste&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Entering paste mode (ctrl-D to finish)
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;howIsEachDayOfTheWeek&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;week&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;day&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;week&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;day&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Sunday&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;day&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Saturday&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;$day is Beautiful!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Exiting paste mode, now interpreting.
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;howIsEachDayOfTheWeek&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;week:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;scala&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;howIsEachDayOfTheWeek&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;days&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;res19&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Sunday&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Beautiful&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Saturday&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Beautiful&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Here, we’ve added, what are called &lt;strong&gt;&lt;em&gt;guards&lt;/em&gt;&lt;/strong&gt;. The &lt;code class=&quot;highlighter-rouge&quot;&gt;if&lt;/code&gt; condition that &lt;strong&gt;guards&lt;/strong&gt; what gets filtered out and becomes available for the &lt;code class=&quot;highlighter-rouge&quot;&gt;yield&lt;/code&gt;. We’ve learned quite a bit of terminology today, let’s add just one more to it before we finish - &lt;strong&gt;&lt;em&gt;for comprehension&lt;/em&gt;&lt;/strong&gt;.
+A good way to remember when a &lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt; construct results in a &lt;strong&gt;&lt;em&gt;comprehension&lt;/em&gt;&lt;/strong&gt; (as opposed to a &lt;strong&gt;&lt;em&gt;loop&lt;/em&gt;&lt;/strong&gt;) is to see what the &lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt; does – &lt;strong&gt;&lt;em&gt;if &lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt; results in a side-effect it is a loop, if it results in another collection, it is a comprehension&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Phew!&lt;/strong&gt; This was a long one! Let’s do some quick exercises so we don’t forget what we learned!&lt;/p&gt;
+
+&lt;h1 id=&quot;exercises&quot;&gt;Exercises&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;Change the &lt;code class=&quot;highlighter-rouge&quot;&gt;howIsEachDayOfTheWeek&lt;/code&gt; function to print the better days of the week instead of yielding them. Hint: The function’s return type would be &lt;code class=&quot;highlighter-rouge&quot;&gt;Unit&lt;/code&gt; in that case.&lt;/li&gt;
+  &lt;li&gt;Play around with &lt;strong&gt;&lt;em&gt;guards&lt;/em&gt;&lt;/strong&gt;. Add more of them in the &lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt; expression.&lt;/li&gt;
+&lt;/ol&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="Basic" />
+      
+
+      
+        <category term="scala" />
+      
+        <category term="iteration" />
+      
+
+      
+        <summary type="html">We’ve already seen some looping in the earlier posts. Today, let’s talk about 3 concepts together that cement one important idea about a functional language that we’ve seen a glimpse of but, which we didn’t bother to define properly - side effects.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
