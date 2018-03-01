@@ -36,6 +36,9 @@
 <loc>http://localhost:4000/scalafastlane/motivation/</loc>
 </url>
 <url>
+<loc>http://localhost:4000/scalafastlane/course/</loc>
+</url>
+<url>
 <loc>http://localhost:4000/scalafastlane/tags/scala/</loc>
 </url>
 <url>
