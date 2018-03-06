@@ -3,10 +3,10 @@
   <generator uri="http://jekyllrb.com" version="3.6.2">Jekyll</generator>
   
   
-  <link href="http://localhost:4000/scalafastlane/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="http://localhost:4000/scalafastlane/" rel="alternate" type="text/html" />
-  <updated>2018-03-01T10:57:20+05:30</updated>
-  <id>http://localhost:4000/scalafastlane//</id>
+  <link href="http://localhost:4040/scalafastlane/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="http://localhost:4040/scalafastlane/" rel="alternate" type="text/html" />
+  <updated>2018-03-06T08:42:09+05:30</updated>
+  <id>http://localhost:4040/scalafastlane//</id>
 
   
     <title type="html">Scala Fast Lane</title>
@@ -22,13 +22,87 @@
   
     <entry>
       
+      <title type="html">#5. Data modelling with Algebraic Data Types</title>
+      
+      <link href="http://localhost:4040/scalafastlane/2018/03/06/modelling-with-algebraic-data-types/" rel="alternate" type="text/html" title="#5. Data modelling with Algebraic Data Types" />
+      <published>2018-03-06T07:18:05+05:30</published>
+      <updated>2018-03-06T07:18:05+05:30</updated>
+      <id>http://localhost:4040/scalafastlane/2018/03/06/modelling-with-algebraic-data-types</id>
+      <content type="html" xml:base="http://localhost:4040/scalafastlane/2018/03/06/modelling-with-algebraic-data-types/">&lt;p&gt;Algebraic Data Types always seems like a complicated topic to those who are new to the functional world. So much so that, they avoid using it altogether! The perils of that approach is that the design of the code becomes largely OOPy making it hard to get the benefits of functional programming. In this post we’ll see how simple they really are and how to best use them. Let’s begin!&lt;/p&gt;
+
+&lt;h1 id=&quot;sum-types-case-class&quot;&gt;Sum Types (&lt;code class=&quot;highlighter-rouge&quot;&gt;case class&lt;/code&gt;)&lt;/h1&gt;
+
+&lt;p&gt;The “Sum Types” ADTs are used when we need to club things of different “shapes” together. In Scala we use case classes to do this. A good example is modelling the users of a website:&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;sealed&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;trait&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Users&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AnonymousUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sessionId&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Users&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LoggedInUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Users&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;(For now, think of &lt;code class=&quot;highlighter-rouge&quot;&gt;trait&lt;/code&gt; as another name for an interface. We’ll talk about it in detail in a later post.)
+In the example above, wherever we want to talk about &lt;code class=&quot;highlighter-rouge&quot;&gt;Users&lt;/code&gt; in our code, we would be forced to talk about both the types of users - &lt;code class=&quot;highlighter-rouge&quot;&gt;AnonymousUser&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;LoggedInUser&lt;/code&gt;. These are called “sum types” because of the way they &lt;strong&gt;&lt;em&gt;combine&lt;/em&gt;&lt;/strong&gt; together to produce new things - How many types of users are there? 2!&lt;/p&gt;
+
+&lt;p&gt;Another cool benefit of using &lt;code class=&quot;highlighter-rouge&quot;&gt;case class&lt;/code&gt; is that you get a constructor for free!&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;john&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LoggedInUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;43&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;awesomejohn&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;randomVisitor&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AnonymousUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;asdfjiberishadsf&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;product-types&quot;&gt;Product Types&lt;/h1&gt;
+
+&lt;p&gt;The product types can be thought of as a traditional class from the OOP world. When we put a few types together, in one clutch, we get a product type. For example, in the example above, &lt;code class=&quot;highlighter-rouge&quot;&gt;LoggedInUser&lt;/code&gt; is a product type that holds 2 Strings together. When you read it like this it becomes clearer:
+“&lt;code class=&quot;highlighter-rouge&quot;&gt;LoggedInUser&lt;/code&gt; is made up of a &lt;code class=&quot;highlighter-rouge&quot;&gt;userId: String&lt;/code&gt; &lt;strong&gt;and&lt;/strong&gt; a &lt;code class=&quot;highlighter-rouge&quot;&gt;username: String&lt;/code&gt;”&lt;/p&gt;
+
+&lt;h1 id=&quot;why-do-we-care&quot;&gt;Why do we care?&lt;/h1&gt;
+
+&lt;p&gt;Well, the proof of the pudding is in data modelling. Product types should feel quite natural if you are coming from the OOP world. The sum types may take a bit of time to adjust to. A good way to think about the sum types is that you are just tagging &lt;strong&gt;absolutely different&lt;/strong&gt; things together so that they can be handled via similar logic. A function that takes &lt;code class=&quot;highlighter-rouge&quot;&gt;Users&lt;/code&gt; would be able to take any of the 2 &lt;code class=&quot;highlighter-rouge&quot;&gt;case classes&lt;/code&gt; we defined even though the 2 look (and indeed are!) very different.&lt;/p&gt;
+
+&lt;p&gt;In that sense, the &lt;code class=&quot;highlighter-rouge&quot;&gt;trait Users&lt;/code&gt; is not just an &lt;code class=&quot;highlighter-rouge&quot;&gt;interface&lt;/code&gt; in the traditional sense (adding functionality), it is in fact, a way to tag the 2 different types so that things like &lt;strong&gt;Pattern Matching&lt;/strong&gt; become simpler (and possible). A golden rule of thumb in functional programming is to &lt;strong&gt;&lt;em&gt;say what things are&lt;/em&gt;&lt;/strong&gt;. That enables us to avoid things like poking inside an object to find a field &lt;code class=&quot;highlighter-rouge&quot;&gt;isAnonymous&lt;/code&gt; to handle a particular code path.&lt;/p&gt;
+
+&lt;h1 id=&quot;exercises&quot;&gt;Exercises&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;Think of 5 different scenarios where totally different objects (based on their structures) need to be tagged together as &lt;code class=&quot;highlighter-rouge&quot;&gt;case classes&lt;/code&gt; with the same tag. (Sum type)&lt;/li&gt;
+  &lt;li&gt;Think of product types that can be “built up” from other sum types.&lt;/li&gt;
+&lt;/ol&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="Basic" />
+      
+
+      
+        <category term="scala" />
+      
+        <category term="data modelling" />
+      
+        <category term="ADT" />
+      
+
+      
+        <summary type="html">Algebraic Data Types always seems like a complicated topic to those who are new to the functional world. So much so that, they avoid using it altogether! The perils of that approach is that the design of the code becomes largely OOPy making it hard to get the benefits of functional programming. In this post we’ll see how simple they really are and how to best use them. Let’s begin!</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
       <title type="html">#4. Conditions and looping vs comprehension</title>
       
-      <link href="http://localhost:4000/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions/" rel="alternate" type="text/html" title="#4. Conditions and looping vs comprehension" />
+      <link href="http://localhost:4040/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions/" rel="alternate" type="text/html" title="#4. Conditions and looping vs comprehension" />
       <published>2018-02-17T07:18:05+05:30</published>
       <updated>2018-02-17T07:18:05+05:30</updated>
-      <id>http://localhost:4000/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions</id>
-      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions/">&lt;p&gt;We’ve already seen some looping in the earlier posts. Today, let’s talk about 3 concepts together that cement one important idea about a functional language that we’ve seen a glimpse of but, which we didn’t bother to define properly - &lt;strong&gt;&lt;em&gt;side effects&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+      <id>http://localhost:4040/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions</id>
+      <content type="html" xml:base="http://localhost:4040/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions/">&lt;p&gt;We’ve already seen some looping in the earlier posts. Today, let’s talk about 3 concepts together that cement one important idea about a functional language that we’ve seen a glimpse of but, which we didn’t bother to define properly - &lt;strong&gt;&lt;em&gt;side effects&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;We said that Scala has expressions meaning, constructs that, after doing their stuff, return a certain value. Compare that with statements like &lt;code class=&quot;highlighter-rouge&quot;&gt;if statements&lt;/code&gt; in other languages - they produce what are called &lt;strong&gt;&lt;em&gt;side effects&lt;/em&gt;&lt;/strong&gt;. Programming is all about &lt;strong&gt;composing&lt;/strong&gt; smaller pieces together to form bigger ones. With that in mind, if a &lt;code class=&quot;highlighter-rouge&quot;&gt;statement&lt;/code&gt; that does not return anything is used, we can never be sure how including it as a compose-able piece will affect the overall behaviour of our code. Avoiding such statements hat produce &lt;strong&gt;&lt;em&gt;side effects&lt;/em&gt;&lt;/strong&gt; is one of the major push that functional programming languages like Scala drive for. But, you do need these &lt;strong&gt;&lt;em&gt;side effects&lt;/em&gt;&lt;/strong&gt;, if you just compose and do nothing, your program is useless! When we code in a FP language, we try to limit such side effects to controlled parts of our code and try to achieve “pureness” everywhere else.&lt;/p&gt;
 
@@ -122,11 +196,11 @@ A good way to remember when a &lt;code class=&quot;highlighter-rouge&quot;&gt;fo
       
       <title type="html">#3. Map and Fold</title>
       
-      <link href="http://localhost:4000/scalafastlane/2018/02/16/basic-map-and-fold/" rel="alternate" type="text/html" title="#3. Map and Fold" />
+      <link href="http://localhost:4040/scalafastlane/2018/02/16/basic-map-and-fold/" rel="alternate" type="text/html" title="#3. Map and Fold" />
       <published>2018-02-16T06:18:05+05:30</published>
       <updated>2018-02-16T06:18:05+05:30</updated>
-      <id>http://localhost:4000/scalafastlane/2018/02/16/basic-map-and-fold</id>
-      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/16/basic-map-and-fold/">&lt;h2 id=&quot;running-down-a-collection-of-objects&quot;&gt;Running down a collection of objects&lt;/h2&gt;
+      <id>http://localhost:4040/scalafastlane/2018/02/16/basic-map-and-fold</id>
+      <content type="html" xml:base="http://localhost:4040/scalafastlane/2018/02/16/basic-map-and-fold/">&lt;h2 id=&quot;running-down-a-collection-of-objects&quot;&gt;Running down a collection of objects&lt;/h2&gt;
 
 &lt;p&gt;Before we start with map, let’s take a very quick detour and see how we can define functions (or methods inside a class which we’ll see in a later post):&lt;/p&gt;
 
@@ -231,11 +305,11 @@ A good way to remember when a &lt;code class=&quot;highlighter-rouge&quot;&gt;fo
       
       <title type="html">#2. A Basic Iteration</title>
       
-      <link href="http://localhost:4000/scalafastlane/2018/02/15/basic-iteration/" rel="alternate" type="text/html" title="#2. A Basic Iteration" />
+      <link href="http://localhost:4040/scalafastlane/2018/02/15/basic-iteration/" rel="alternate" type="text/html" title="#2. A Basic Iteration" />
       <published>2018-02-15T12:18:05+05:30</published>
       <updated>2018-02-15T12:18:05+05:30</updated>
-      <id>http://localhost:4000/scalafastlane/2018/02/15/basic-iteration</id>
-      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/15/basic-iteration/">&lt;h2 id=&quot;a-basic-iteration&quot;&gt;A Basic Iteration:&lt;/h2&gt;
+      <id>http://localhost:4040/scalafastlane/2018/02/15/basic-iteration</id>
+      <content type="html" xml:base="http://localhost:4040/scalafastlane/2018/02/15/basic-iteration/">&lt;h2 id=&quot;a-basic-iteration&quot;&gt;A Basic Iteration:&lt;/h2&gt;
 
 &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scala&amp;gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;x &amp;lt;- &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1 to 10&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; yield &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; x &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 res3: scala.collection.immutable.IndexedSeq[Int] &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Vector&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1, 4, 9, 16, 25, 36, 49, 64, 81, 100&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
@@ -296,11 +370,11 @@ res3: scala.collection.immutable.IndexedSeq[Int] &lt;span class=&quot;o&quot;&gt
       
       <title type="html">#1. Explore the RePL</title>
       
-      <link href="http://localhost:4000/scalafastlane/2018/02/15/basic-repl-stuff/" rel="alternate" type="text/html" title="#1. Explore the RePL" />
+      <link href="http://localhost:4040/scalafastlane/2018/02/15/basic-repl-stuff/" rel="alternate" type="text/html" title="#1. Explore the RePL" />
       <published>2018-02-15T08:56:05+05:30</published>
       <updated>2018-02-15T08:56:05+05:30</updated>
-      <id>http://localhost:4000/scalafastlane/2018/02/15/basic-repl-stuff</id>
-      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/15/basic-repl-stuff/">&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;scala
+      <id>http://localhost:4040/scalafastlane/2018/02/15/basic-repl-stuff</id>
+      <content type="html" xml:base="http://localhost:4040/scalafastlane/2018/02/15/basic-repl-stuff/">&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;scala
 scala&amp;gt; val x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;
 x: String &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; hello
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -349,11 +423,11 @@ x: String &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; hello
       
       <title type="html">#0. Installation Business</title>
       
-      <link href="http://localhost:4000/scalafastlane/2018/02/15/installation/" rel="alternate" type="text/html" title="#0. Installation Business" />
+      <link href="http://localhost:4040/scalafastlane/2018/02/15/installation/" rel="alternate" type="text/html" title="#0. Installation Business" />
       <published>2018-02-15T08:46:05+05:30</published>
       <updated>2018-02-15T08:46:05+05:30</updated>
-      <id>http://localhost:4000/scalafastlane/2018/02/15/installation</id>
-      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/15/installation/">&lt;p&gt;This would install the scala RePL and sbt (Scala’s build tool) on your machine.&lt;/p&gt;
+      <id>http://localhost:4040/scalafastlane/2018/02/15/installation</id>
+      <content type="html" xml:base="http://localhost:4040/scalafastlane/2018/02/15/installation/">&lt;p&gt;This would install the scala RePL and sbt (Scala’s build tool) on your machine.&lt;/p&gt;
 
 &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;brew install scala
 
