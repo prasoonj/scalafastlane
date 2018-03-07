@@ -1,1 +1,1 @@
-Sitemap: http://localhost:4040/scalafastlane/sitemap.xml
+Sitemap: http://localhost:4000/scalafastlane/sitemap.xml

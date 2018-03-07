@@ -3,10 +3,10 @@
   <generator uri="http://jekyllrb.com" version="3.6.2">Jekyll</generator>
   
   
-  <link href="http://localhost:4040/scalafastlane/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="http://localhost:4040/scalafastlane/" rel="alternate" type="text/html" />
-  <updated>2018-03-06T08:42:09+05:30</updated>
-  <id>http://localhost:4040/scalafastlane//</id>
+  <link href="http://localhost:4000/scalafastlane/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="http://localhost:4000/scalafastlane/" rel="alternate" type="text/html" />
+  <updated>2018-03-07T20:09:14+05:30</updated>
+  <id>http://localhost:4000/scalafastlane//</id>
 
   
     <title type="html">Scala Fast Lane</title>
@@ -22,13 +22,71 @@
   
     <entry>
       
+      <title type="html">#6. Data Transformation as a Design Principle</title>
+      
+      <link href="http://localhost:4000/scalafastlane/2018/03/07/data-transformations/" rel="alternate" type="text/html" title="#6. Data Transformation as a Design Principle" />
+      <published>2018-03-07T19:18:05+05:30</published>
+      <updated>2018-03-07T19:18:05+05:30</updated>
+      <id>http://localhost:4000/scalafastlane/2018/03/07/data-transformations</id>
+      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/03/07/data-transformations/">&lt;p&gt;If I were asked to name the most important idea of Functional Programming, I would certainly say it is Data Transformation! I’m no expert in Category Theory but, I think it derives quite naturally from there - using functions to combine/convert one category to the other using algebra defined on them (I would really love some inputs here!)&lt;/p&gt;
+
+&lt;p&gt;Category Theory aside, if you look at any imperative language that’s trying to mimic a functional way, the thing they start with are ways to do data transformations. We’ve already seen &lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt; comprehensions and, &lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;fold&lt;/code&gt; in earlier posts. In this post, let’s try to see if we can find some ways to spot if we are missing the mark and writing Scala in the Java way (anti-patterns)!&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Use of &lt;code class=&quot;highlighter-rouge&quot;&gt;var&lt;/code&gt;: If your code is using &lt;code class=&quot;highlighter-rouge&quot;&gt;var&lt;/code&gt;, chances are that you are not using the full power of data transformations.&lt;/li&gt;
+  &lt;li&gt;Shared state: This usually is a result of the first point. If you have a &lt;code class=&quot;highlighter-rouge&quot;&gt;var&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;val&lt;/code&gt; declared at a global level in your code and there are functions that are manipulating this shared state, there is a problem that can be solved by transforming the data and passing it around in functions.&lt;/li&gt;
+  &lt;li&gt;Functions with zero parameters: Yes, again in the same vein, this anti-pattern hints to the possible use of transforming data.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The above is not an exhaustive list of course but, those are points that are easy to spot and correct.&lt;/p&gt;
+
+&lt;p&gt;A neat trick to understand is that in functional programming, you don’t need to pass data around back and forth between different functions - that’s what the functions are for! Create small functions that work on a single piece of data and &lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt; them over a collection to get a different collection!&lt;/p&gt;
+
+&lt;h1 id=&quot;exercises&quot;&gt;Exercises&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;Check out the &lt;a href=&quot;url:https://prasoonj.github.io/scalafastlane/2018/02/16/basic-map-and-fold/&quot;&gt;post on &lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;fold&lt;/code&gt;&lt;/a&gt; and see if you feel more confident about that topic!&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt; is basically &lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt; under the surface! Read up the &lt;a href=&quot;url:https://prasoonj.github.io/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions/&quot;&gt;previous post&lt;/a&gt; on that topic and work out the exercises again to see if you are able to do them better!&lt;/li&gt;
+&lt;/ol&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="Basic" />
+      
+
+      
+        <category term="scala" />
+      
+        <category term="data transformations" />
+      
+        <category term="functional programming" />
+      
+
+      
+        <summary type="html">If I were asked to name the most important idea of Functional Programming, I would certainly say it is Data Transformation! I’m no expert in Category Theory but, I think it derives quite naturally from there - using functions to combine/convert one category to the other using algebra defined on them (I would really love some inputs here!)</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
       <title type="html">#5. Data modelling with Algebraic Data Types</title>
       
-      <link href="http://localhost:4040/scalafastlane/2018/03/06/modelling-with-algebraic-data-types/" rel="alternate" type="text/html" title="#5. Data modelling with Algebraic Data Types" />
+      <link href="http://localhost:4000/scalafastlane/2018/03/06/modelling-with-algebraic-data-types/" rel="alternate" type="text/html" title="#5. Data modelling with Algebraic Data Types" />
       <published>2018-03-06T07:18:05+05:30</published>
       <updated>2018-03-06T07:18:05+05:30</updated>
-      <id>http://localhost:4040/scalafastlane/2018/03/06/modelling-with-algebraic-data-types</id>
-      <content type="html" xml:base="http://localhost:4040/scalafastlane/2018/03/06/modelling-with-algebraic-data-types/">&lt;p&gt;Algebraic Data Types always seems like a complicated topic to those who are new to the functional world. So much so that, they avoid using it altogether! The perils of that approach is that the design of the code becomes largely OOPy making it hard to get the benefits of functional programming. In this post we’ll see how simple they really are and how to best use them. Let’s begin!&lt;/p&gt;
+      <id>http://localhost:4000/scalafastlane/2018/03/06/modelling-with-algebraic-data-types</id>
+      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/03/06/modelling-with-algebraic-data-types/">&lt;p&gt;Algebraic Data Types always seems like a complicated topic to those who are new to the functional world. So much so that, they avoid using it altogether! The perils of that approach is that the design of the code becomes largely OOPy making it hard to get the benefits of functional programming. In this post we’ll see how simple they really are and how to best use them. Let’s begin!&lt;/p&gt;
 
 &lt;h1 id=&quot;sum-types-case-class&quot;&gt;Sum Types (&lt;code class=&quot;highlighter-rouge&quot;&gt;case class&lt;/code&gt;)&lt;/h1&gt;
 
@@ -98,11 +156,11 @@ In the example above, wherever we want to talk about &lt;code class=&quot;highli
       
       <title type="html">#4. Conditions and looping vs comprehension</title>
       
-      <link href="http://localhost:4040/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions/" rel="alternate" type="text/html" title="#4. Conditions and looping vs comprehension" />
+      <link href="http://localhost:4000/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions/" rel="alternate" type="text/html" title="#4. Conditions and looping vs comprehension" />
       <published>2018-02-17T07:18:05+05:30</published>
       <updated>2018-02-17T07:18:05+05:30</updated>
-      <id>http://localhost:4040/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions</id>
-      <content type="html" xml:base="http://localhost:4040/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions/">&lt;p&gt;We’ve already seen some looping in the earlier posts. Today, let’s talk about 3 concepts together that cement one important idea about a functional language that we’ve seen a glimpse of but, which we didn’t bother to define properly - &lt;strong&gt;&lt;em&gt;side effects&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+      <id>http://localhost:4000/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions</id>
+      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/17/basic-conditions-looping-for-comprehensions/">&lt;p&gt;We’ve already seen some looping in the earlier posts. Today, let’s talk about 3 concepts together that cement one important idea about a functional language that we’ve seen a glimpse of but, which we didn’t bother to define properly - &lt;strong&gt;&lt;em&gt;side effects&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;We said that Scala has expressions meaning, constructs that, after doing their stuff, return a certain value. Compare that with statements like &lt;code class=&quot;highlighter-rouge&quot;&gt;if statements&lt;/code&gt; in other languages - they produce what are called &lt;strong&gt;&lt;em&gt;side effects&lt;/em&gt;&lt;/strong&gt;. Programming is all about &lt;strong&gt;composing&lt;/strong&gt; smaller pieces together to form bigger ones. With that in mind, if a &lt;code class=&quot;highlighter-rouge&quot;&gt;statement&lt;/code&gt; that does not return anything is used, we can never be sure how including it as a compose-able piece will affect the overall behaviour of our code. Avoiding such statements hat produce &lt;strong&gt;&lt;em&gt;side effects&lt;/em&gt;&lt;/strong&gt; is one of the major push that functional programming languages like Scala drive for. But, you do need these &lt;strong&gt;&lt;em&gt;side effects&lt;/em&gt;&lt;/strong&gt;, if you just compose and do nothing, your program is useless! When we code in a FP language, we try to limit such side effects to controlled parts of our code and try to achieve “pureness” everywhere else.&lt;/p&gt;
 
@@ -196,11 +254,11 @@ A good way to remember when a &lt;code class=&quot;highlighter-rouge&quot;&gt;fo
       
       <title type="html">#3. Map and Fold</title>
       
-      <link href="http://localhost:4040/scalafastlane/2018/02/16/basic-map-and-fold/" rel="alternate" type="text/html" title="#3. Map and Fold" />
+      <link href="http://localhost:4000/scalafastlane/2018/02/16/basic-map-and-fold/" rel="alternate" type="text/html" title="#3. Map and Fold" />
       <published>2018-02-16T06:18:05+05:30</published>
       <updated>2018-02-16T06:18:05+05:30</updated>
-      <id>http://localhost:4040/scalafastlane/2018/02/16/basic-map-and-fold</id>
-      <content type="html" xml:base="http://localhost:4040/scalafastlane/2018/02/16/basic-map-and-fold/">&lt;h2 id=&quot;running-down-a-collection-of-objects&quot;&gt;Running down a collection of objects&lt;/h2&gt;
+      <id>http://localhost:4000/scalafastlane/2018/02/16/basic-map-and-fold</id>
+      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/16/basic-map-and-fold/">&lt;h2 id=&quot;running-down-a-collection-of-objects&quot;&gt;Running down a collection of objects&lt;/h2&gt;
 
 &lt;p&gt;Before we start with map, let’s take a very quick detour and see how we can define functions (or methods inside a class which we’ll see in a later post):&lt;/p&gt;
 
@@ -305,11 +363,11 @@ A good way to remember when a &lt;code class=&quot;highlighter-rouge&quot;&gt;fo
       
       <title type="html">#2. A Basic Iteration</title>
       
-      <link href="http://localhost:4040/scalafastlane/2018/02/15/basic-iteration/" rel="alternate" type="text/html" title="#2. A Basic Iteration" />
+      <link href="http://localhost:4000/scalafastlane/2018/02/15/basic-iteration/" rel="alternate" type="text/html" title="#2. A Basic Iteration" />
       <published>2018-02-15T12:18:05+05:30</published>
       <updated>2018-02-15T12:18:05+05:30</updated>
-      <id>http://localhost:4040/scalafastlane/2018/02/15/basic-iteration</id>
-      <content type="html" xml:base="http://localhost:4040/scalafastlane/2018/02/15/basic-iteration/">&lt;h2 id=&quot;a-basic-iteration&quot;&gt;A Basic Iteration:&lt;/h2&gt;
+      <id>http://localhost:4000/scalafastlane/2018/02/15/basic-iteration</id>
+      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/15/basic-iteration/">&lt;h2 id=&quot;a-basic-iteration&quot;&gt;A Basic Iteration:&lt;/h2&gt;
 
 &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scala&amp;gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;x &amp;lt;- &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1 to 10&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; yield &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; x &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 res3: scala.collection.immutable.IndexedSeq[Int] &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Vector&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1, 4, 9, 16, 25, 36, 49, 64, 81, 100&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
@@ -370,11 +428,11 @@ res3: scala.collection.immutable.IndexedSeq[Int] &lt;span class=&quot;o&quot;&gt
       
       <title type="html">#1. Explore the RePL</title>
       
-      <link href="http://localhost:4040/scalafastlane/2018/02/15/basic-repl-stuff/" rel="alternate" type="text/html" title="#1. Explore the RePL" />
+      <link href="http://localhost:4000/scalafastlane/2018/02/15/basic-repl-stuff/" rel="alternate" type="text/html" title="#1. Explore the RePL" />
       <published>2018-02-15T08:56:05+05:30</published>
       <updated>2018-02-15T08:56:05+05:30</updated>
-      <id>http://localhost:4040/scalafastlane/2018/02/15/basic-repl-stuff</id>
-      <content type="html" xml:base="http://localhost:4040/scalafastlane/2018/02/15/basic-repl-stuff/">&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;scala
+      <id>http://localhost:4000/scalafastlane/2018/02/15/basic-repl-stuff</id>
+      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/15/basic-repl-stuff/">&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;scala
 scala&amp;gt; val x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;
 x: String &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; hello
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -423,11 +481,11 @@ x: String &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; hello
       
       <title type="html">#0. Installation Business</title>
       
-      <link href="http://localhost:4040/scalafastlane/2018/02/15/installation/" rel="alternate" type="text/html" title="#0. Installation Business" />
+      <link href="http://localhost:4000/scalafastlane/2018/02/15/installation/" rel="alternate" type="text/html" title="#0. Installation Business" />
       <published>2018-02-15T08:46:05+05:30</published>
       <updated>2018-02-15T08:46:05+05:30</updated>
-      <id>http://localhost:4040/scalafastlane/2018/02/15/installation</id>
-      <content type="html" xml:base="http://localhost:4040/scalafastlane/2018/02/15/installation/">&lt;p&gt;This would install the scala RePL and sbt (Scala’s build tool) on your machine.&lt;/p&gt;
+      <id>http://localhost:4000/scalafastlane/2018/02/15/installation</id>
+      <content type="html" xml:base="http://localhost:4000/scalafastlane/2018/02/15/installation/">&lt;p&gt;This would install the scala RePL and sbt (Scala’s build tool) on your machine.&lt;/p&gt;
 
 &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;brew install scala
 
